@@ -1,8 +1,11 @@
-import s from "./Statistics.module.css";
+import s from './Statistics.module.css';
 
-export default function Statistics({ state, children }) {
-  const values = Array.from(state.values());
-  const keys = Array.from(state.keys());
+export default function Statistics({state, children}) {
+  // const values = Array.from(state.values());
+  // const keys = Array.from(state.keys());
+
+  let keys = Object.keys(state);
+  let values = Object.values(state);
 
   const countTotalFeedback = () => {
     const total = values.reduce((a, i) => a + i);
@@ -16,13 +19,13 @@ export default function Statistics({ state, children }) {
 
   return (
     <>
-      {values.find((value) => value > 0) ? (
+      {values.find(value => value > 0) ? (
         <div className={s.container}>
           <h2 className={s.title}>Statistics:</h2>
           <ul className={s.list}>
             {keys.map((key, i) => (
               <li key={key} className={s.item}>
-                {key.slice(0, 1).toUpperCase() + key.slice(1)}:{" "}
+                {key.slice(0, 1).toUpperCase() + key.slice(1)}:{' '}
                 <span className={s.value}>{values[i]}</span>
               </li>
             ))}
@@ -30,7 +33,7 @@ export default function Statistics({ state, children }) {
               Total: <span className={s.value}>{countTotalFeedback()}</span>
             </li>
             <li className={s.item}>
-              Positive feedback:{" "}
+              Positive feedback:{' '}
               <span className={s.value}>
                 {countPositiveFeedbackPercentage()}%
               </span>
